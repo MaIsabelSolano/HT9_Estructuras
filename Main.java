@@ -20,72 +20,109 @@ class Main {
 	  Factory factory = new Factory();
 	  Scanner scan = new Scanner(System.in);
 	
-		
 		//utiles
-		private String Msgerror = ("Se ha producido un error, ingrese una opci\u00edn v\u00e1lida");
+		String Msgerror = ("Se ha producido un error, ingrese una opci\u00edn v\u00e1lida");
 
-    // Archivo txt
+		//pedirle al usuario la implementacion de desea utilizar
+		SearchInterface SI;
+		boolean verificador = true;
+		int opcion = 0;
+		while (verificador){
+			try{
+				System.out.println("\nEscriba el n\u00famero de la implementaci\u00edn que desee utilizar:\n\t1)SplayTree\n\t2)HashMap\n");
+
+				//eleccion del usuario
+				opcion = scan.nextInt();
+
+				if (opcion == 1||opcion == 2){
+					//puede salir del loop
+					verificador = false;
+				}
+				else {
+					System.out.print(Msgerror);
+					//repite el loop
+				}
+			}
+			catch(InputMismatchException ime){
+				System.out.print(Msgerror);
+				scan.nextLine(); 
+			}
+		}
+
+		if (opcion == 1){
+			//Se utiliza el SplayTree
+		}
+
+		else if (opcion == 2){
+			//se utiliza el HashMap
+		}
+
+	}
+
+
+	/**
+	* @param
+	* @return 
+	* @throws FileNotFoundException
+	*/
+	public static String obtencionTexto() throws FileNotFoundException{
+		String expresion = "";
+		ArrayList<String> temp = new ArrayList<>();
+		File origen = new File("Texto.txt");
+		Scanner lector = new Scanner(origen);
+		while(lector.hasNextLine()){
+			temp.add(lector.nextLine());
+			temp.add(" ");
+		}
+		expresion = temp.toString();
+		return expresion;
+	}
+	
+	public static void LeerArchivoHM()throws FileNotFoundException{
+		//leer el archivo para la implementacion HashMap
     File file = null;
-    ArrayList<Asociacion> cards = new ArrayList<Asociacion>();
-
-    //Try-catch para errorer por posible falta de Archivo
-    try{
-      
-      // Lectura de Archivo txt
+    ArrayList <String> palabras = new ArrayList<String>();   
+    try {
       file = new File ("Spanish.txt");
       Scanner fileReader = new Scanner(file);
 
-      while (fileReader.hasNextLine()){
+      while (fileReader.hasnextLine()){
+        
         String line = fileReader.nextLine();
-				String[] lineaSeparada = line.split(" ");
-				ArrayList<String> definicionArray = new ArrayList<String>();
-				String ENG = lineaSeparada[0];
-				for (int i = 1; i<lineaSeparada.lengh; i++){
-					//Se salta la primera palabra para que solo se guarde la definición y no la llave
-					definicionArray.add(lineaSeparada[i]);
-				}
-				String ESP =  definicionArray.toString();
-				//hala todo y el tipo de palabra que es (ej:verb)
-				//la primera palabra es la def en ingles
-				//la segunda palabra es la de en esp
-				Asociacion temp = new Asociacion(ENG,ESP);
-				cards.add(temp);
+        palabras.add(line);
       }
 
       fileReader.close();
-
-    }catch(FileNotFoundException exeption){
-
+    } catch(FileNotFoundException exception){
+      
       System.out.println("No se ha encontrado el archivo.");
-    } 
+    }
+	}
 
-    //Si el archivo fue encontrado con exito
-    if (file != null){
-			//obtener la decision del usuario
-			boolean verificador = true;
-			int opcion = 0;
-			while (verificador){
-				try {
-					System.out.println("Escriba el n\u00famero de la implementaci\u00edn que desee utilizar:\n\t1)Red Black Tree\n\t2)HashMap");
+	public static void LeerArchivoST()throws FileNotFoundException{
+		//leer el archivo para la implementacion Splay Tree
+    try {
+      FileReader lector = new FileReader("Spanish.txt");
+      BufferedReader buff = new BufferedReader(lector);
+      while ((linea = buff.readLine()) != null){
+        //Se eliminan tabulaciones y caracteres extras
+          linea = linea.replaceAll(";","");
+          linea = linea.replaceAll(",","");
+          linea = linea.replaceAll("\t", " ");
+          String [] significados = linea.split(" ");
+          String ingles = significados[0];
+          String espa = significados[1];
+          arbol.put(ingles,espa);
+      }
+      buff.close();
+    }catch (IOException ex){ 
+      System.out.println("No se ha encontrado el archivo.");
+    }
+	}
 
-					opcion = scan.nextInt();
-
-					if (opcion == 1||opcion == 2){
-						//se puede avanzar
-						verificador = false;
-					}
-					else {
-						System.out.println(Msgerror);
-					}
-				} catch(InputMismatchException ime){
-				System.out.println(Msgerror);
-				}
-			}
+	public static void Traducir(String expresion, SearchInterface SI){
+    String linea = "";
 		
-			//Se obtiene la implementacion
-			mapa = factory.selectMap(opcion);
-
-		}
-
+   
   }
 }
