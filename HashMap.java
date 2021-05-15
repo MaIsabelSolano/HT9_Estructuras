@@ -14,27 +14,10 @@ public class HashMap{
   }
 
   public boolean containsKey(K key) {
-    boolean result = keys.contains(key);
-    return result;
+    
   }
 
   public V get(K key) {
 
-    int index = -1;
-
-    // Búsqueda del indice de la llave.
-    for (int i = 0; i < keys.size(); i++) {
-        if (keys.get(i).equals(key)) {
-            index = i;
-        }
-    }
-
-    // Retorno del valor agregado.
-    if (index != -1) {
-        V value = values.get(index);
-        return value;
-    }
-
-    return null;
-  }
+   
 }
