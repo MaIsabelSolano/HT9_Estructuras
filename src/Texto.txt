@@ -1,2 +1,0 @@
-This is an example of how different the classes SplayTree and HashMap work
-Hello my name is Mikey
